@@ -57,7 +57,7 @@ inline fun <reified routeClass : Any> NavGraphBuilder.composeRoute(
     }.orEmpty()
 
     val routeName = buildString {
-        append("${routeKClass.qualifiedName}")
+        append(routeKClass.qualifiedName.orEmpty())
         append(QUESTION_MARK)
         args.map { it.name }.forEach { s -> append("$s={$s}&") }
         deleteAt(lastIndex)
