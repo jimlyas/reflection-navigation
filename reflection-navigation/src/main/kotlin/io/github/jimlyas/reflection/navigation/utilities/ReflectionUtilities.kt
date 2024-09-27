@@ -3,6 +3,8 @@ package io.github.jimlyas.reflection.navigation.utilities
 import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavType
+import io.github.jimlyas.reflection.navigation.utilities.Constants.DOT
+import io.github.jimlyas.reflection.navigation.utilities.Constants.THREE
 import io.github.jimlyas.reflection.navigation.utilities.GsonUtilities.getTypeToken
 import io.github.jimlyas.reflection.navigation.utilities.GsonUtilities.parseToObject
 import java.math.BigDecimal
@@ -115,5 +117,19 @@ object ReflectionUtilities {
         } catch (t: Throwable) {
             null
         }
+    }
+
+    /**
+     * Function to return [KClass] with its' package name as the route
+     * Will return at most three words and two dots in-between
+     * @return [String] for the URL
+     * @receiver [KClass]
+     */
+    fun KClass<*>.asRouteName(): String {
+        val input = qualifiedName.orEmpty()
+        val parts = input.split(DOT)
+
+        return if (parts.size <= THREE) input
+        else parts.takeLast(THREE).joinToString(DOT)
     }
 }

@@ -1,6 +1,9 @@
+import com.vanniktech.maven.publish.MavenPublishBaseExtension
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.publish)
 }
 
 group = "io.github.jimlyas"
@@ -35,6 +38,35 @@ android {
     kotlinOptions.jvmTarget = "17"
     buildFeatures.compose = true
     composeOptions.kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+}
+
+afterEvaluate {
+    @Suppress("UnstableApiUsage")
+    configure<MavenPublishBaseExtension> {
+        coordinates(project.group.toString(), project.name, project.version.toString())
+        pom {
+            name = rootProject.name
+            description = "Jetpack Compose Navigation Library using Reflection and GSON"
+            inceptionYear = "2024"
+            url = "https://github.com/jimlyas/reflection-navigation"
+
+            licenses {
+                license {
+                    name = "The Apache License, Version 2.0"
+                    url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                }
+            }
+
+            developers {
+                developer {
+                    id = "jimlyas"
+                    name = "Jimly Asshiddiqy"
+                    url = "https://github.com/jimlyas"
+                }
+            }
+        }
+    }
 }
 
 dependencies {

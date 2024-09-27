@@ -10,7 +10,7 @@ import com.github.jimlyas.reflectionav.sample.data.Profile
 import io.github.jimlyas.reflection.navigation.annotation.ReflectiveRoute
 
 @ReflectiveRoute
-data class DetailRoute(val id: Profile)
+data class DetailRoute(val item: List<Profile>)
 
 @Composable
 internal fun DetailScreen(profile: Profile) {
@@ -19,10 +19,8 @@ internal fun DetailScreen(profile: Profile) {
     Column(
         Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 5.dp)
     ) {
-//        vm.args?.id?.let { profile ->
         Text(text = profile.name)
         Text(text = profile.age.toString())
         Text(text = profile.currentBalance.toPlainString())
-//        }
     }
 }

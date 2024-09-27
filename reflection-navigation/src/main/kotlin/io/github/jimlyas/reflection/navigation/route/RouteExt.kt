@@ -12,6 +12,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import io.github.jimlyas.reflection.navigation.utilities.Constants.QUESTION_MARK
+import io.github.jimlyas.reflection.navigation.utilities.ReflectionUtilities.asRouteName
 import io.github.jimlyas.reflection.navigation.utilities.ReflectionUtilities.toNavType
 import kotlin.reflect.full.primaryConstructor
 
@@ -57,7 +58,7 @@ inline fun <reified routeClass : Any> NavGraphBuilder.composeRoute(
     }.orEmpty()
 
     val routeName = buildString {
-        append(routeKClass.qualifiedName.orEmpty())
+        append(routeKClass.asRouteName())
         append(QUESTION_MARK)
         args.map { it.name }.forEach { s -> append("$s={$s}&") }
         deleteAt(lastIndex)

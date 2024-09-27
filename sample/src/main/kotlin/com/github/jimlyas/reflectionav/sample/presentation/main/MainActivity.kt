@@ -20,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.jimlyas.reflection.navigation.destination.getArg
 import io.github.jimlyas.reflection.navigation.navigation.navigateTo
 import io.github.jimlyas.reflection.navigation.route.composeRoute
+import io.github.jimlyas.reflection.navigation.utilities.ReflectionUtilities.asRouteName
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -34,16 +35,15 @@ class MainActivity : ComponentActivity() {
                     NavHost(
                         modifier = Modifier.padding(innerPadding),
                         navController = controller,
-                        startDestination = ListRoute::class.qualifiedName.orEmpty()
+                        startDestination = ListRoute::class.asRouteName()
                     ) {
                         composeRoute<ListRoute> {
-                            ListScreen { controller.navigateTo(DetailRoute(it)) }
+                            ListScreen { controller.navigateTo(DetailRoute(listOf(it))) }
                         }
 
                         composeRoute<DetailRoute> {
                             val args = remember { it.getArg<DetailRoute>() }
-                            args?.id?.let { profile -> DetailScreen(profile) }
-//                            DetailScreen()
+                            args?.let { profile -> DetailScreen(profile.item.first()) }
                         }
                     }
                 }

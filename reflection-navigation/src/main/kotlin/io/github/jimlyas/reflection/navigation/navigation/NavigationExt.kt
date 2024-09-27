@@ -8,6 +8,7 @@ import androidx.navigation.Navigator.Extras
 import io.github.jimlyas.reflection.navigation.utilities.CastingUtilities.parseToString
 import io.github.jimlyas.reflection.navigation.utilities.Constants.NAVIGATION_AUTHORITY
 import io.github.jimlyas.reflection.navigation.utilities.Constants.NAVIGATION_SCHEME
+import io.github.jimlyas.reflection.navigation.utilities.ReflectionUtilities.asRouteName
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.jvm.isAccessible
 
@@ -30,7 +31,7 @@ fun <destination : Any> NavController.navigateTo(
     val intendedUri = Uri.Builder()
         .scheme(NAVIGATION_SCHEME)
         .authority(NAVIGATION_AUTHORITY)
-        .path(kClass.qualifiedName.orEmpty())
+        .path(kClass.asRouteName())
 
     kClass
         .declaredMemberProperties

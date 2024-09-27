@@ -17,6 +17,7 @@ kotlin = "1.9.10"
 ksp = "1.9.10-1.0.13"
 lifecycleRuntimeKtx = "2.8.4"
 material = "1.12.0"
+publish = "0.25.3"
 timber = "5.0.1"
 
 [libraries]
@@ -54,3 +55,4 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+publish = { id = "com.vanniktech.maven.publish", version.ref = "publish" }
