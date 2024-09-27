@@ -16,6 +16,19 @@ Should be fast enough to build because not using KSP and generated code.
 
 ## ❯ Download
 
+Add the dependency below into your **module**'s build.gradle file:
+
+```kotlin
+dependencies {
+    implementation("io.github.jimlyas:reflection-navigation:0.1.0")
+}
+```
+
+## R8 / Proguard
+
+The specific rules are [already bundled](reflection-navigation/consumer-rules.pro) into the JAR
+which can be interpreted by R8 automatically.
+
 ## ❯ Implementation
 
 ### Define Route
@@ -34,9 +47,7 @@ data class OtherRoute(val someData: String, val someClassMaybe: SomeClass)
 ```
 
 The annotation doesn't used to generate or parse your code.
-It is used to prevent your code to be obfuscated, this library already provided the expected
-proguard
-rule [here](reflection-navigation/consumer-rules.pro).
+It is only used to prevent your code to be obfuscated.
 
 As of why any route need to be preserved because the parameter name is used as the argument name,
 might not work properly with dynamic link if it's obfuscated.

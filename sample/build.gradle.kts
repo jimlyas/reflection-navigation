@@ -52,7 +52,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":reflection-navigation"))
+//    implementation(project(":reflection-navigation"))
+    implementation(libs.reflect.nav)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)

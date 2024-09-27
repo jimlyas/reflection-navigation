@@ -19,6 +19,7 @@ lifecycleRuntimeKtx = "2.8.4"
 material = "1.12.0"
 publish = "0.29.0"
 timber = "5.0.1"
+reflect = "0.1.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -44,6 +45,7 @@ hiltCompiler = { group = "com.google.dagger", name = "hilt-compiler", version.re
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+reflect-nav = { group = "io.github.jimlyas", name = "reflection-navigation", version.ref = "reflect" }
 
 [bundles]
 ui = ["androidx-activity-compose", "androidx-material3", "material", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "compose-lifecycle"]
