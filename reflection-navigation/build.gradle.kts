@@ -43,30 +43,7 @@ android {
 }
 
 mavenPublishing {
-    publishToMavenCentral(S01)
     coordinates(project.group.toString(), project.name, project.version.toString())
-    pom {
-        name = rootProject.name
-        description = "Jetpack Compose Navigation Library using Reflection and GSON"
-        inceptionYear = "2024"
-        url = "https://github.com/jimlyas/reflection-navigation"
-
-        licenses {
-            license {
-                name = "The Apache License, Version 2.0"
-                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-            }
-        }
-
-        developers {
-            developer {
-                id = "jimlyas"
-                name = "Jimly Asshiddiqy"
-                url = "https://github.com/jimlyas"
-            }
-        }
-    }
 }
 
 dependencies {
