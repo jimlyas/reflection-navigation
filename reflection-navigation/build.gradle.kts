@@ -1,4 +1,5 @@
-import com.vanniktech.maven.publish.MavenPublishBaseExtension
+import com.vanniktech.maven.publish.SonatypeHost.Companion.S01
+import org.gradle.api.JavaVersion.VERSION_17
 
 plugins {
     alias(libs.plugins.android.library)
@@ -31,8 +32,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = VERSION_17
+        targetCompatibility = VERSION_17
+    }
+
+    publishing.multipleVariants("full") {
+        allVariants()
+        withSourcesJar()
     }
 
     kotlinOptions.jvmTarget = "17"
@@ -40,30 +46,28 @@ android {
     composeOptions.kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
 }
 
-afterEvaluate {
-    @Suppress("UnstableApiUsage")
-    configure<MavenPublishBaseExtension> {
-        coordinates(project.group.toString(), project.name, project.version.toString())
-        pom {
-            name = rootProject.name
-            description = "Jetpack Compose Navigation Library using Reflection and GSON"
-            inceptionYear = "2024"
-            url = "https://github.com/jimlyas/reflection-navigation"
+mavenPublishing {
+    publishToMavenCentral(S01)
+    coordinates(project.group.toString(), project.name, project.version.toString())
+    pom {
+        name = rootProject.name
+        description = "Jetpack Compose Navigation Library using Reflection and GSON"
+        inceptionYear = "2024"
+        url = "https://github.com/jimlyas/reflection-navigation"
 
-            licenses {
-                license {
-                    name = "The Apache License, Version 2.0"
-                    url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                    distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                }
+        licenses {
+            license {
+                name = "The Apache License, Version 2.0"
+                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
             }
+        }
 
-            developers {
-                developer {
-                    id = "jimlyas"
-                    name = "Jimly Asshiddiqy"
-                    url = "https://github.com/jimlyas"
-                }
+        developers {
+            developer {
+                id = "jimlyas"
+                name = "Jimly Asshiddiqy"
+                url = "https://github.com/jimlyas"
             }
         }
     }
