@@ -53,4 +53,3 @@ fun <destination : Any> NavController.navigateTo(
         navigatorExtras = navExtras
     )
 }
-

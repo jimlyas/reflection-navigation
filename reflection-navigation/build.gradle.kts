@@ -1,6 +1,3 @@
-import com.vanniktech.maven.publish.SonatypeHost.Companion.S01
-import org.gradle.api.JavaVersion.VERSION_17
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -32,18 +29,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = VERSION_17
-        targetCompatibility = VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions.jvmTarget = "17"
     buildFeatures.compose = true
     publishing.multipleVariants("full") { allVariants() }
     composeOptions.kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-}
-
-mavenPublishing {
-    coordinates(project.group.toString(), project.name, project.version.toString())
 }
 
 dependencies {
