@@ -36,13 +36,9 @@ android {
         targetCompatibility = VERSION_17
     }
 
-    publishing.multipleVariants("full") {
-        allVariants()
-        withSourcesJar()
-    }
-
     kotlinOptions.jvmTarget = "17"
     buildFeatures.compose = true
+    publishing.multipleVariants("full") { allVariants() }
     composeOptions.kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
 }
 
