@@ -49,8 +49,6 @@ jobs:
           ./gradlew build
       - name: Create new tag
         run: |
-          git config --global user.email "j_mly@ymail.com"
-          git config --global user.name "jimlyas"
           git tag -a $TAG -m "Release v$TAG"
           git push origin $TAG
         env:

@@ -24,7 +24,7 @@ dependencies {
 }
 ```
 
-## R8 / Proguard
+## ❯ R8 / Proguard
 
 The specific rules are [already bundled](reflection-navigation/consumer-rules.pro) into the AAR
 which can be interpreted by R8 automatically.

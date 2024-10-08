@@ -1,5 +1,6 @@
 package com.github.jimlyas.reflectionav.sample.presentation.screens.detail
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -13,11 +14,13 @@ import io.github.jimlyas.reflection.navigation.annotation.ReflectiveRoute
 data class DetailRoute(val item: List<Profile>)
 
 @Composable
-internal fun DetailScreen(profile: Profile) {
+internal fun DetailScreen(profile: Profile, onNavigate: () -> Unit) {
 //    val vm = hiltViewModel<DetailViewModel>()
 
     Column(
-        Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 5.dp)
+        Modifier
+            .padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 5.dp)
+            .clickable { onNavigate() }
     ) {
         Text(text = profile.name)
         Text(text = profile.age.toString())

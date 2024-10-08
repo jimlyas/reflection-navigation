@@ -43,7 +43,9 @@ class MainActivity : ComponentActivity() {
 
                         composeRoute<DetailRoute> {
                             val args = remember { it.getArg<DetailRoute>() }
-                            args?.let { profile -> DetailScreen(profile.item.first()) }
+                            args?.let { profile ->
+                                DetailScreen(profile.item.first()) { controller.popBackStack() }
+                            }
                         }
                     }
                 }
