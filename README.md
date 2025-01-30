@@ -26,7 +26,7 @@ dependencies {
 
 ## R8 / Proguard
 
-The specific rules are [already bundled](reflection-navigation/consumer-rules.pro) into the JAR
+The specific rules are [already bundled](reflection-navigation/consumer-rules.pro) into the AAR
 which can be interpreted by R8 automatically.
 
 ## ❯ Implementation
@@ -50,7 +50,7 @@ The annotation doesn't used to generate or parse your code.
 It is only used to prevent your code to be obfuscated.
 
 As of why any route need to be preserved because the parameter name is used as the argument name,
-might not work properly with dynamic link if it's obfuscated.
+might not work properly with deep link if it's obfuscated by R8/Dexguard.
 
 ### Register to NavGraphBuilder
 
