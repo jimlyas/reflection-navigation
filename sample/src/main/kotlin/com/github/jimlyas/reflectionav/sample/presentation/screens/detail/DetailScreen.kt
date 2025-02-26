@@ -11,7 +11,7 @@ import com.github.jimlyas.reflectionav.sample.data.Profile
 import io.github.jimlyas.reflection.navigation.annotation.ReflectiveRoute
 
 @ReflectiveRoute
-data class DetailRoute(val item: List<Profile>)
+data class DetailRoute(val item: Profile? = null)
 
 @Composable
 internal fun DetailScreen(profile: Profile, onNavigate: () -> Unit) {

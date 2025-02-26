@@ -28,27 +28,24 @@ fun <destination : Any> NavController.navigateTo(
 ) {
     val kClass = route::class
 
-    val intendedUri = Uri.Builder()
-        .scheme(NAVIGATION_SCHEME)
-        .authority(NAVIGATION_AUTHORITY)
-        .path(kClass.asRouteName())
+    val intendedUri = Uri.Builder().apply {
+        scheme(NAVIGATION_SCHEME)
+        authority(NAVIGATION_AUTHORITY)
+        path(kClass.asRouteName())
 
-    kClass
-        .declaredMemberProperties
-        .forEach { property ->
-            property.isAccessible = true
-            val name = property.name
-            val value = property.getter.call(route)
+        kClass
+            .declaredMemberProperties
+            .forEach { property ->
+                property.isAccessible = true
+                val name = property.name
+                val value = property.getter.call(route)
 
-            value?.let {
-                intendedUri.appendQueryParameter(
-                    name, value.parseToString()
-                )
+                value?.let { appendQueryParameter(name, value.parseToString()) }
             }
-        }
+    }.build()
 
     navigate(
-        request = NavDeepLinkRequest.Builder.fromUri(intendedUri.build()).build(),
+        request = NavDeepLinkRequest.Builder.fromUri(intendedUri).build(),
         navOptions = navOptions,
         navigatorExtras = navExtras
     )

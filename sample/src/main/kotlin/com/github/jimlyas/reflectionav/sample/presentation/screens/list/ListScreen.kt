@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,16 +19,16 @@ import io.github.jimlyas.reflection.navigation.annotation.ReflectiveRoute
 object ListRoute
 
 @Composable
-internal fun ListScreen(onNavigate: (Profile) -> Unit) {
+internal fun ListScreen(onNavigate: (Profile, Int) -> Unit) {
     LazyColumn {
-        items(
+        itemsIndexed(
             items = dummyData,
-            key = { it.id }
-        ) { item ->
+            key = { index: Int, item: Profile -> item.id + index }
+        ) { index, item ->
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .clickable { onNavigate(item) }
+                    .clickable { onNavigate(item, index) }
             ) {
                 Column(
                     Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 5.dp)

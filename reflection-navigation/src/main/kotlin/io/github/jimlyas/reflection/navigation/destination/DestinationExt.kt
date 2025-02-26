@@ -1,8 +1,12 @@
 package io.github.jimlyas.reflection.navigation.destination
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController.Companion.KEY_DEEP_LINK_INTENT
+import io.github.jimlyas.reflection.navigation.utilities.Constants.NAVIGATION_AUTHORITY
+import io.github.jimlyas.reflection.navigation.utilities.Constants.NAVIGATION_SCHEME
 import io.github.jimlyas.reflection.navigation.utilities.ReflectionUtilities.getValueFrom
 import kotlin.reflect.full.primaryConstructor
 
@@ -27,6 +31,13 @@ inline fun <reified destination : Any> SavedStateHandle.getArg(): destination? =
     null
 }
 
+fun SavedStateHandle.isFromDeeplink(): Boolean {
+    val currentUri = get<Intent>(KEY_DEEP_LINK_INTENT)?.data
+    val nonNativeScheme = currentUri?.scheme.orEmpty() != NAVIGATION_SCHEME
+    val nonNativeAuthority = currentUri?.authority.orEmpty() != NAVIGATION_AUTHORITY
+    return nonNativeScheme && nonNativeAuthority
+}
+
 /**
  * Function to get instance of [destinationClass] from [NavBackStackEntry]
  *
@@ -42,4 +53,19 @@ inline fun <reified destinationClass : Any> NavBackStackEntry.getArg(): destinat
     )
 } catch (t: Throwable) {
     null
+}
+
+/**
+ * Function to get does the destination opened from a Uri parsed deeplink or not
+ *
+ * @author jimlyas
+ * @return [Boolean] true if navigation from uri-parsed deeplink, and false if not
+ * @receiver [NavBackStackEntry]
+ */
+@Suppress("DEPRECATION")
+fun NavBackStackEntry.isFromDeeplink(): Boolean {
+    val currentUri = this.arguments?.getParcelable<Intent>(KEY_DEEP_LINK_INTENT)?.data
+    val nonNativeScheme = currentUri?.scheme.orEmpty() != NAVIGATION_SCHEME
+    val nonNativeAuthority = currentUri?.authority.orEmpty() != NAVIGATION_AUTHORITY
+    return nonNativeScheme && nonNativeAuthority
 }
