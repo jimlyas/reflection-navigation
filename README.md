@@ -20,7 +20,7 @@ Add the dependency below into your **module**'s build.gradle file:
 
 ```kotlin
 dependencies {
-    implementation("io.github.jimlyas:reflection-navigation:0.1.0")
+    implementation("io.github.jimlyas:reflection-navigation:0.2.0")
 }
 ```
 
@@ -112,10 +112,44 @@ Which one is better? You do you. The return type will be nullable to prevent cra
 failed to initialize your route instance or if your route class doesn't have primary constructor
 _(which rarely happen I guess)_.
 
+### Deeplink?
+
+To know does the destination opened through deep link or not is tricky, because technically all
+navigation using navigation component now is deep link.
+
+```kotlin
+// Let's call it native link
+navController.navigateTo(RouteB("someData", 69, false))
+
+// Let's call it deep link
+navController.navigate(Uri.parse("https://some.url/path")) 
+```
+
+If your use case need to differentiate native link and deep link, you can now use:
+
+```kotlin
+// From ViewModel
+@HiltViewModel
+class SomeViewModel @Inject constructor(savedStateHandle: SavedStateHandle) : ViewModel() {
+    val fromDeeplink = savedStateHandle.isFromDeeplink()
+}
+
+// From composeRoute
+composeRoute<RouteB> {
+    val args = it.getArg<RouteB>()
+    val fromDeeplink = it.isFromDeeplink()
+    RouteBScreen(args)
+}
+```
+
+`fromDeeplink` will return `true` if the destination opened through deep link, and return `false`
+if not.
+
+
 ## ❯ License
 
 ```
-Copyright (c) 2024 Jimly Asshiddiqy
+Copyright (c) 2024-2025 Jimly Asshiddiqy
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
